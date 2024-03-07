@@ -19,3 +19,7 @@
 ## 開発環境構築
 
 [Kotlin Multiplatform Development - Set up an environment](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-setup.html#possible-issues-and-solutions)
+
+## API
+
+- [FreeWeatherApi](https://www.weatherapi.com/)
