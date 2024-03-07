@@ -77,3 +77,9 @@ android {
     }
 }
 
+/**
+ * Cannot locate tasks that match ':composeApp:testClasses'
+ * as task 'testClasses' not found in project ':composeApp'回避のワークアラウンド
+ * https://github.com/robolectric/robolectric/issues/1802
+ */
+tasks.register("testClasses"){}
