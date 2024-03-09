@@ -7,7 +7,8 @@ class Greeting {
     private val client = HttpClient()
 
     suspend fun greet(): String {
-        val response = client.get("https://api.weatherapi.com/v1/current.json?key=${FREE_WEATHER_API_KEY}&q=Tokyo&aqi=no")
+        val response =
+            client.get("https://api.weatherapi.com/v1/current.json?key=${FREE_WEATHER_API_KEY}&q=Tokyo&aqi=no")
         return response.bodyAsText()
     }
 }

@@ -1,5 +1,4 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -18,7 +17,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -29,9 +28,9 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
@@ -99,11 +98,15 @@ buildkonfig {
     packageName = "jp.kyamlab.weatherreport"
 
     defaultConfigs {
-        buildConfigField(FieldSpec.Type.STRING, "FREE_WEATHER_API_KEY", propOfDef("freeweather.api.key","freeweather_api_key"))
+        buildConfigField(
+            FieldSpec.Type.STRING,
+            "FREE_WEATHER_API_KEY",
+            propOfDef("freeweather.api.key", "freeweather_api_key")
+        )
     }
 }
 
-fun <T: Any> propOfDef(propertyName: String, defaultValue: T): T {
+fun <T : Any> propOfDef(propertyName: String, defaultValue: T): T {
     val props = Properties()
     try {
         FileInputStream("local.properties").use { props.load(it) }
@@ -121,4 +124,4 @@ fun <T: Any> propOfDef(propertyName: String, defaultValue: T): T {
  * as task 'testClasses' not found in project ':composeApp'回避のワークアラウンド
  * https://github.com/robolectric/robolectric/issues/1802
  */
-tasks.register("testClasses"){}
+tasks.register("testClasses") {}
