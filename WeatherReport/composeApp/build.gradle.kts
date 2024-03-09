@@ -1,5 +1,4 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
-import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -37,26 +36,25 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
         }
-        val commonMain by getting {
-            kotlin.srcDirs("build/generated/ksp/metadata/commonMain/kotlin")
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material)
-                implementation(compose.ui)
-                implementation(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.logging)
-                implementation(libs.ktor.serialization.kotlinx.json)
-                implementation(libs.ktor.client.content.negotiation)
-                implementation(libs.ktor.client.encoding)
-                implementation(libs.touchlab.kermit)
-                implementation(libs.ktor.client.core)
-                implementation(libs.kotlinx.coroutines.core)
-                implementation(libs.koin.core)
-                implementation(libs.koin.annotations)
-            }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.encoding)
+            implementation(libs.touchlab.kermit)
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.koin.core)
+        }
+        commonTest.dependencies {
+            implementation(libs.koin.test)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -96,13 +94,7 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
         implementation(libs.kotlinx.coroutines.android)
-        implementation(libs.koin.android)
-        implementation(libs.koin.annotations)
     }
-}
-
-dependencies {
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
 }
 
 buildkonfig {
@@ -136,18 +128,3 @@ fun <T : Any> propOfDef(propertyName: String, defaultValue: T): T {
  * https://github.com/robolectric/robolectric/issues/1802
  */
 tasks.register("testClasses") {}
-
-// WORKAROUND: ADD this dependsOn("kspCommonMainKotlinMetadata") instead of above dependencies
-tasks.withType<KotlinCompile<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-}
-afterEvaluate {
-    tasks.filter {
-        it.name.contains("SourcesJar", true)
-    }.forEach {
-        println("SourceJarTask====>${it.name}")
-        it.dependsOn("kspCommonMainKotlinMetadata")
-    }
-}

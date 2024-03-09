@@ -1,6 +1,6 @@
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,22 +14,17 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.context.startKoin
-import org.koin.ksp.generated.AppModule
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
 fun App() {
     startKoin {
-        printLogger()
-        modules(
-            // use your modules here, with generated ".module" extension on Module classes
-            AppModule().module
-        )
+        modules(appModule)
     }
 
     MaterialTheme {
-        Surface(
+        Column(
             modifier = Modifier.fillMaxSize()
         ) {
             val scope = rememberCoroutineScope()
@@ -43,6 +38,7 @@ fun App() {
                     }
                 }
             }
+            Text(text = GreetingHelper().greet())
             GreetingView(text)
         }
     }
