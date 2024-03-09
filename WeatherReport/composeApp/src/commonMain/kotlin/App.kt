@@ -13,11 +13,21 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.core.context.startKoin
+import org.koin.ksp.generated.AppModule
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
 fun App() {
+    startKoin {
+        printLogger()
+        modules(
+            // use your modules here, with generated ".module" extension on Module classes
+            AppModule().module
+        )
+    }
+
     MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize()
