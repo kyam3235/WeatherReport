@@ -45,6 +45,10 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.encoding)
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
