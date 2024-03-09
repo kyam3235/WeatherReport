@@ -1,9 +1,13 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.buildkonfigGradlePlugin)
 }
 
 kotlin {
@@ -40,6 +44,19 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
         }
+        commonMain.dependencies {
+            implementation(libs.ktor.client.core)
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+        commonMain.dependencies {
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.coroutines.core)
+        }
     }
 }
 
@@ -74,7 +91,29 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+        implementation(libs.kotlinx.coroutines.android)
     }
+}
+
+buildkonfig {
+    packageName = "jp.kyamlab.weatherreport"
+
+    defaultConfigs {
+        buildConfigField(FieldSpec.Type.STRING, "FREE_WEATHER_API_KEY", propOfDef("freeweather.api.key","freeweather_api_key"))
+    }
+}
+
+fun <T: Any> propOfDef(propertyName: String, defaultValue: T): T {
+    val props = Properties()
+    try {
+        FileInputStream("local.properties").use { props.load(it) }
+    } catch (e: Exception) {
+        println("Error reading local.properties: ${e.message}")
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    val propertyValue = props[propertyName] as? T
+    return propertyValue ?: defaultValue
 }
 
 /**
