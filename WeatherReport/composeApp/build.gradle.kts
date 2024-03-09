@@ -99,7 +99,7 @@ buildkonfig {
     packageName = "jp.kyamlab.weatherreport"
 
     defaultConfigs {
-        buildConfigField(FieldSpec.Type.STRING, "FREE_WEATHER_API_KEY", propOfDef("freeweather.apk.key","freeweather_api_key"))
+        buildConfigField(FieldSpec.Type.STRING, "FREE_WEATHER_API_KEY", propOfDef("freeweather.api.key","freeweather_api_key"))
     }
 }
 
