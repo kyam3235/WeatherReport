@@ -1,7 +1,12 @@
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -10,12 +15,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.navigator.tab.CurrentTab
+import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
+import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabNavigator
+import cafe.adriel.voyager.navigator.tab.TabOptions
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.context.startKoin
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
 fun App() {
@@ -24,6 +32,55 @@ fun App() {
     }
 
     MaterialTheme {
+        TabNavigator(HomeTab) {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(text = it.current.options.title)
+                        }
+                    )
+                },
+                bottomBar = {
+                    BottomNavigation {
+                        TabNavigationItem(HomeTab)
+                        TabNavigationItem(SecondTab)
+                    }
+                }
+            ) {
+                CurrentTab()
+            }
+        }
+    }
+}
+
+@Composable
+fun GreetingView(text: String) {
+    Text(text = text)
+}
+
+@Preview
+@Composable
+fun DefaultPreview() {
+    MaterialTheme {
+        GreetingView("Hello Android!")
+    }
+}
+
+@Composable
+private fun RowScope.TabNavigationItem(tab: Tab) {
+    val tabNavigator = LocalTabNavigator.current
+
+    BottomNavigationItem(
+        selected = tabNavigator.current == tab,
+        onClick = { tabNavigator.current = tab },
+        icon = { Text(text = tab.options.title) }
+    )
+}
+
+object HomeTab : Tab {
+    @Composable
+    override fun Content() {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -42,17 +99,35 @@ fun App() {
             GreetingView(text)
         }
     }
+
+    override val options: TabOptions
+        @Composable
+        get() = remember {
+            TabOptions(
+                index = 0u,
+                title = "Home",
+                icon = null
+            )
+        }
 }
 
-@Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MaterialTheme {
-        GreetingView("Hello Android!")
+object SecondTab : Tab {
+    @Composable
+    override fun Content() {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(text = "This is second screen")
+        }
     }
+
+    override val options: TabOptions
+        @Composable
+        get() = remember {
+            TabOptions(
+                index = 1u,
+                title = "Second",
+                icon = null
+            )
+        }
 }
