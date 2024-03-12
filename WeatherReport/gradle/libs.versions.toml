@@ -21,6 +21,7 @@ kermit = "2.0.3"
 ksp = "1.9.22-1.0.17"
 koin = "3.5.3"
 voyager = "1.0.0"
+orbit-mvi = "6.1.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -53,6 +54,9 @@ voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", vers
 voyager-bottomSheetNavigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 voyager-tabNavigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
+orbit-mvi-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit-mvi" }
+orbit-mvi-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit-mvi" }
+orbit-mvi-test = { module = "org.orbit-mvi:orbit-test", version.ref = "orbit-mvi" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
