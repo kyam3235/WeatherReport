@@ -57,12 +57,9 @@ kotlin {
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.tabNavigator)
             implementation(libs.voyager.transitions)
-            implementation(libs.orbit.mvi.core)
-            implementation(libs.orbit.mvi.compose)
         }
         commonTest.dependencies {
             implementation(libs.koin.test)
-            implementation(libs.orbit.mvi.test)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
