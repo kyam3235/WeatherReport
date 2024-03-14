@@ -4,4 +4,5 @@ import org.koin.dsl.module
 
 val appModule = module {
     singleOf(::SampleComponent) bind SampleComponent::class
+    viewModelDefinition { CalculatorViewModel() }
 }
