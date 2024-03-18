@@ -35,6 +35,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -57,6 +58,8 @@ kotlin {
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.tabNavigator)
             implementation(libs.voyager.transitions)
+            implementation(libs.orbit.mvi.core)
+            implementation(libs.moko.mvvm.core)
         }
         commonTest.dependencies {
             implementation(libs.koin.test)
