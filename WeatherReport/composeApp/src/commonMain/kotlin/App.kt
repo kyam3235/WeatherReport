@@ -117,11 +117,11 @@ object HomeTab : Tab {
 }
 
 object SecondTab : Tab, KoinComponent {
+    private val viewModel: CalculatorViewModel by inject()
+
     @Composable
     override fun Content() {
-        val viewModel: CalculatorViewModel by inject()
         val state = viewModel.container.stateFlow.collectAsState().value
-
         Logger.d { "Total: ${state.total}" }
 
         Column(
