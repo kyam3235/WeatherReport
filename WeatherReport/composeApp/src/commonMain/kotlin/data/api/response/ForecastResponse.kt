@@ -7,15 +7,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ForecastResponse(
-    @SerialName("location")
     val location: Location,
-    @SerialName("current")
     val current: Current,
-    @SerialName("forecast")
-    val forecast: List<ForecastDay>
+    val forecast: Forecast
 )
 
 @Serializable
+@SerialName("location")
 data class Location(
     @SerialName("name")
     val name: String,
@@ -36,6 +34,7 @@ data class Location(
 )
 
 @Serializable
+@SerialName("current")
 data class Current(
     @SerialName("last_updated_epoch")
     val lastUpdatedEpoch: Long,
@@ -47,7 +46,6 @@ data class Current(
     val temperatureFahrenheit: Double,
     @SerialName("is_day")
     val isDay: Int,
-    @SerialName("condition")
     val condition: Condition,
     @SerialName("wind_mph")
     val windMilePerHour: Double,
@@ -70,22 +68,21 @@ data class Current(
     @SerialName("feelslike_c")
     val feelslikeCelsius: Double,
     @SerialName("feelslike_f")
-    val feelslikeFahrenheit: Condition,
+    val feelslikeFahrenheit: Double,
     @SerialName("vis_km")
     val visibilityInKilometer: Double,
     @SerialName("vis_miles")
     val visibilityInMiles: Double,
     @SerialName("uv")
-    val uv: Int,
+    val uv: Double,
     @SerialName("gust_mph")
     val windGustInMilesPerHour: Double,
     @SerialName("gust_kph")
-    val windGustInKmPerHour: Double,
-    @SerialName("air_quality")
-    val airQuality: AirQuality,
+    val windGustInKmPerHour: Double
 )
 
 @Serializable
+@SerialName("condition")
 data class Condition(
     @SerialName("text")
     val text: String,
@@ -96,23 +93,10 @@ data class Condition(
 )
 
 @Serializable
-data class AirQuality(
-    @SerialName("co")
-    val co: Double,
-    @SerialName("no2")
-    val no2: Double,
-    @SerialName("o3")
-    val o3: Double,
-    @SerialName("so2")
-    val so2: Double,
-    @SerialName("pm2_5")
-    val pm2_5: Double,
-    @SerialName("pm10")
-    val pm10: Double,
-    @SerialName("us-epa-index")
-    val usEpaIndex: Int,
-    @SerialName("gb-defra-index")
-    val ukDefraIndex: Int
+@SerialName("forecast")
+data class Forecast(
+    @SerialName("forecastday")
+    val forecastDays: List<ForecastDay>
 )
 
 @Serializable
@@ -121,11 +105,11 @@ data class ForecastDay(
     val date: String,
     @SerialName("date_epoch")
     val dateEpoch: Long,
-    @SerialName("day")
     val day: Day
 )
 
 @Serializable
+@SerialName("day")
 data class Day(
     @SerialName("maxtemp_c")
     val maxTemperatureCelsius: Double,
