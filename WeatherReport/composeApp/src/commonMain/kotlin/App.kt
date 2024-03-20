@@ -23,6 +23,7 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import co.touchlab.kermit.Logger
+import data.api.apiModule
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.component.KoinComponent
@@ -33,7 +34,7 @@ import org.koin.core.context.startKoin
 @Preview
 fun App() {
     startKoin {
-        modules(appModule)
+        modules(appModule, apiModule)
     }
 
     MaterialTheme {
