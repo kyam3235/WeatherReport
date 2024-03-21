@@ -61,6 +61,7 @@ kotlin {
             implementation(libs.voyager.transitions)
             implementation(libs.orbit.mvi.core)
             implementation(libs.moko.mvvm.core)
+            implementation(libs.kamel.image)
         }
         commonTest.dependencies {
             implementation(libs.koin.test)
