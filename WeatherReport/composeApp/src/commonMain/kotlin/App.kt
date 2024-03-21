@@ -9,13 +9,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
@@ -23,17 +18,20 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.launch
+import data.api.apiModule
+import data.repository.repositoryModule
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
+import ui.japan.JapanScreen
+import ui.japan.JapanViewModel
 
 @Composable
 @Preview
 fun App() {
     startKoin {
-        modules(appModule)
+        modules(appModule, apiModule, repositoryModule)
     }
 
     MaterialTheme {
@@ -83,26 +81,29 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
     )
 }
 
-object HomeTab : Tab {
+object HomeTab : Tab, KoinComponent {
+    private val viewModel: JapanViewModel by inject()
+
     @Composable
     override fun Content() {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            val scope = rememberCoroutineScope()
-            var text by remember { mutableStateOf("Loading") }
-            LaunchedEffect(true) {
-                scope.launch {
-                    text = try {
-                        Greeting().greet()
-                    } catch (e: Exception) {
-                        e.message ?: "error"
-                    }
-                }
-            }
-            Text(text = GreetingHelper().greet())
-            GreetingView(text)
-        }
+        JapanScreen(viewModel = viewModel)
+//        Column(
+//            modifier = Modifier.fillMaxSize()
+//        ) {
+//            val scope = rememberCoroutineScope()
+//            var text by remember { mutableStateOf("Loading") }
+//            LaunchedEffect(true) {
+//                scope.launch {
+//                    text = try {
+//                        Greeting().greet()
+//                    } catch (e: Exception) {
+//                        e.message ?: "error"
+//                    }
+//                }
+//            }
+//            Text(text = GreetingHelper().greet())
+//            GreetingView(text)
+//        }
     }
 
     override val options: TabOptions
