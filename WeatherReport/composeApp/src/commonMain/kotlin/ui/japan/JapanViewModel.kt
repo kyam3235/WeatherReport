@@ -27,9 +27,10 @@ class JapanViewModel(
 
     private suspend fun getWeathers() = intent {
         val newWeathers = mutableListOf<TwoDaysWeather>()
-        Prefecture.entries.forEach {
-            newWeathers.add(weatherRepository.getTwoDaysWeather(it))
-        }
+        newWeathers.add(weatherRepository.getTwoDaysWeather(Prefecture.TOKYO))
+//        Prefecture.entries.forEach {
+//            newWeathers.add(weatherRepository.getTwoDaysWeather(it))
+//        }
         reduce {
             state.copy(
                 weathers = newWeathers
