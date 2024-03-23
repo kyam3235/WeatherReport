@@ -65,48 +65,44 @@ private fun WeatherInfo(
     label: String,
     oneDayWeather: OneDayWeather
 ) {
-    Column {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             text = label,
             style = MaterialTheme.typography.subtitle2
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            KamelImage(
-                modifier = Modifier.size(48.dp),
-                resource = asyncPainterResource(data = "https:${oneDayWeather.iconUrl}"),
-                contentDescription = null,
-                onLoading = { progress -> CircularProgressIndicator(progress) }
+        KamelImage(
+            modifier = Modifier.size(48.dp),
+            resource = asyncPainterResource(data = "https:${oneDayWeather.iconUrl}"),
+            contentDescription = null,
+            onLoading = { progress -> CircularProgressIndicator(progress) }
+        )
+        Spacer(modifier = Modifier.size(4.dp))
+        Row {
+            Text(
+                text = "${oneDayWeather.maxTemperatureCelsius}℃",
+                style = MaterialTheme.typography.body2,
+                color = Color.Red
             )
             Spacer(modifier = Modifier.size(4.dp))
-            Column {
-                Row {
-                    Text(
-                        text = "${oneDayWeather.maxTemperatureCelsius}℃",
-                        style = MaterialTheme.typography.body2,
-                        color = Color.Red
-                    )
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Text(
-                        text = "/",
-                        style = MaterialTheme.typography.body2,
-                        color = Color.Gray
-                    )
-                    Spacer(modifier = Modifier.size(4.dp))
-                    Text(
-                        text = "${oneDayWeather.minTemperatureCelsius}℃",
-                        style = MaterialTheme.typography.body2,
-                        color = Color.Blue
-                    )
-                }
-                Text(
-                    text = "${oneDayWeather.dailyChanceOfRain}%",
-                    style = MaterialTheme.typography.body2,
-                    color = Color.Gray
-                )
-            }
+            Text(
+                text = "/",
+                style = MaterialTheme.typography.body2,
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.size(4.dp))
+            Text(
+                text = "${oneDayWeather.minTemperatureCelsius}℃",
+                style = MaterialTheme.typography.body2,
+                color = Color.Blue
+            )
         }
+        Text(
+            text = "${oneDayWeather.dailyChanceOfRain}%",
+            style = MaterialTheme.typography.body2,
+            color = Color.Gray
+        )
     }
 }
 
