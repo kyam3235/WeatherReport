@@ -1,6 +1,6 @@
 package ui.japan
 
-import data.model.Prefecture
+import data.model.City
 import data.model.TwoDaysWeather
 import data.repository.WeatherRepository
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -27,7 +27,7 @@ class JapanViewModel(
 
     private suspend fun getWeathers() = intent {
         val newWeathers = mutableListOf<TwoDaysWeather>()
-        newWeathers.add(weatherRepository.getTwoDaysWeather(Prefecture.TOKYO))
+        newWeathers.add(weatherRepository.getTwoDaysWeather(City.TOKYO))
 //        Prefecture.entries.forEach {
 //            newWeathers.add(weatherRepository.getTwoDaysWeather(it))
 //        }

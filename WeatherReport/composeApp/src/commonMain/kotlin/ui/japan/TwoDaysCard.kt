@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data.model.OneDayWeather
-import data.model.Prefecture
+import data.model.City
 import data.model.TwoDaysWeather
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
@@ -29,7 +29,7 @@ fun TwoDaysCard(
         Column(
             modifier = Modifier.fillMaxWidth().padding(16.dp)
         ) {
-            Text(text = weather.prefecture.name)
+            Text(text = weather.city.name)
             Row {
                 KamelImage(
                     modifier = Modifier.size(64.dp),
@@ -57,7 +57,7 @@ fun TwoDaysCard(
 fun TwoDaysCardPreview() {
     TwoDaysCard(
         TwoDaysWeather(
-            prefecture = Prefecture.TOKYO,
+            city = City.TOKYO,
             today = OneDayWeather(
                 iconUrl = "",
                 text = "晴れ",
