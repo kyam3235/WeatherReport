@@ -10,7 +10,7 @@ fun JapanScreen(viewModel: JapanViewModel) {
 
     LazyColumn {
         items(state.weathers.size) { index ->
-            TwoDaysCard(weather = state.weathers[index])
+            TwoDaysCard(twoDaysWeather = state.weathers[index])
 //            Row {
 //                Text(text = state.weathers[index].prefecture.name)
 //                Spacer(modifier = Modifier.size(8.dp))

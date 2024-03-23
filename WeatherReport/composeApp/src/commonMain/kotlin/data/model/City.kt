@@ -1,6 +1,6 @@
 package data.model
 
-enum class City(label: String) {
+enum class City(val label: String) {
     SAPPORO(label = "札幌"),
     KUSHIRO(label = "釧路"),
     NIIGATA(label = "新潟"),
