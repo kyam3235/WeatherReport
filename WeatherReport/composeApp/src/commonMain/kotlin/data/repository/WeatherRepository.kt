@@ -1,8 +1,8 @@
 package data.repository
 
-import data.model.Prefecture
+import data.model.City
 import data.model.TwoDaysWeather
 
 interface WeatherRepository {
-    suspend fun getTwoDaysWeather(prefecture: Prefecture): TwoDaysWeather
+    suspend fun getTwoDaysWeather(city: City): TwoDaysWeather
 }

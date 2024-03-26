@@ -1,7 +1,8 @@
 package data.model
 
 data class TwoDaysWeather(
-    val prefecture: Prefecture,
+    val dateEpoch: Long,
+    val city: City,
     val today: OneDayWeather,
     val tomorrow: OneDayWeather
 )

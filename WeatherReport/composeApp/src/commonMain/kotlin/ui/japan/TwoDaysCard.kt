@@ -1,54 +1,111 @@
 package ui.japan
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import data.model.City
 import data.model.OneDayWeather
-import data.model.Prefecture
 import data.model.TwoDaysWeather
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import ui.utils.Colors
+import ui.utils.VerticalDivider
 
 @Composable
 fun TwoDaysCard(
-    weather: TwoDaysWeather
+    modifier: Modifier = Modifier,
+    twoDaysWeather: TwoDaysWeather
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(16.dp)
+        modifier = modifier,
+        border = BorderStroke(
+            width = 1.dp,
+            color = Colors.DeepSkyBlue
+        ),
+        backgroundColor = Color.White.copy(alpha = 0.8f)
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(16.dp)
+            modifier = Modifier.padding(8.dp).height(IntrinsicSize.Min)
         ) {
-            Text(text = weather.prefecture.name)
+            Text(
+                text = twoDaysWeather.city.label,
+                style = MaterialTheme.typography.subtitle1
+            )
             Row {
-                KamelImage(
-                    modifier = Modifier.size(64.dp),
-                    resource = asyncPainterResource(data = "https:${weather.today.iconUrl}"),
-                    contentDescription = null,
-                    onLoading = { progress -> CircularProgressIndicator(progress) }
+                WeatherInfo(
+                    label = "今日",
+                    oneDayWeather = twoDaysWeather.today
                 )
-                Spacer(modifier = Modifier.size(16.dp))
-                Column {
-                    Text(text = weather.today.text)
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Row {
-                        Text(text = "${weather.today.maxTemperatureCelsius}℃")
-                        Spacer(modifier = Modifier.size(8.dp))
-                        Text(text = "${weather.today.minTemperatureCelsius}℃")
-                    }
-                }
+                Spacer(modifier = Modifier.size(8.dp))
+                VerticalDivider(color = Color.Gray)
+                Spacer(modifier = Modifier.size(8.dp))
+                WeatherInfo(
+                    label = "明日",
+                    oneDayWeather = twoDaysWeather.tomorrow
+                )
             }
         }
+    }
+}
+
+@Composable
+private fun WeatherInfo(
+    label: String,
+    oneDayWeather: OneDayWeather
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.subtitle2
+        )
+        KamelImage(
+            modifier = Modifier.size(48.dp),
+            resource = asyncPainterResource(data = "https:${oneDayWeather.iconUrl}"),
+            contentDescription = null,
+            onLoading = { progress -> CircularProgressIndicator(progress) }
+        )
+        Spacer(modifier = Modifier.size(4.dp))
+        Row {
+            Text(
+                text = "${oneDayWeather.maxTemperatureCelsius}℃",
+                style = MaterialTheme.typography.body2,
+                color = Color.Red
+            )
+            Spacer(modifier = Modifier.size(4.dp))
+            Text(
+                text = "/",
+                style = MaterialTheme.typography.body2,
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.size(4.dp))
+            Text(
+                text = "${oneDayWeather.minTemperatureCelsius}℃",
+                style = MaterialTheme.typography.body2,
+                color = Color.Blue
+            )
+        }
+        Text(
+            text = "${oneDayWeather.dailyChanceOfRain}%",
+            style = MaterialTheme.typography.body2,
+            color = Color.Gray
+        )
     }
 }
 
@@ -56,8 +113,9 @@ fun TwoDaysCard(
 @Preview
 fun TwoDaysCardPreview() {
     TwoDaysCard(
-        TwoDaysWeather(
-            prefecture = Prefecture.TOKYO,
+        twoDaysWeather = TwoDaysWeather(
+            dateEpoch = 0,
+            city = City.TOKYO,
             today = OneDayWeather(
                 iconUrl = "",
                 text = "晴れ",
