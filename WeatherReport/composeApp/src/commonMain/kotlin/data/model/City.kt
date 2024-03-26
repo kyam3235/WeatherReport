@@ -11,7 +11,7 @@ enum class City(val label: String) {
     OSAKA(label = "大阪"),
     HIROSHIMA(label = "広島"),
     KOCHI(label = "高知"),
-    HUKUOKA(label = "福岡"),
+    FUKUOKA(label = "福岡"),
     KAGOSHIMA(label = "鹿児島"),
     NAHA(label = "那覇")
 }

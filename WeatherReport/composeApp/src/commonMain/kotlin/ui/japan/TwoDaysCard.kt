@@ -28,13 +28,16 @@ import ui.utils.VerticalDivider
 
 @Composable
 fun TwoDaysCard(
+    modifier: Modifier = Modifier,
     twoDaysWeather: TwoDaysWeather
 ) {
     Card(
+        modifier = modifier,
         border = BorderStroke(
             width = 1.dp,
             color = Colors.DeepSkyBlue
-        )
+        ),
+        backgroundColor = Color.White.copy(alpha = 0.8f)
     ) {
         Column(
             modifier = Modifier.padding(8.dp).height(IntrinsicSize.Min)
@@ -110,7 +113,8 @@ private fun WeatherInfo(
 @Preview
 fun TwoDaysCardPreview() {
     TwoDaysCard(
-        TwoDaysWeather(
+        twoDaysWeather = TwoDaysWeather(
+            dateEpoch = 0,
             city = City.TOKYO,
             today = OneDayWeather(
                 iconUrl = "",

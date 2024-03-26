@@ -62,6 +62,7 @@ kotlin {
             implementation(libs.orbit.mvi.core)
             implementation(libs.moko.mvvm.core)
             implementation(libs.kamel.image)
+            implementation(libs.lavmee.constraintlayout)
         }
         commonTest.dependencies {
             implementation(libs.koin.test)

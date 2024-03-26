@@ -2,8 +2,8 @@ package data.repository
 
 import data.api.FreeWeatherApi
 import data.api.request.ForecastRequest
-import data.model.OneDayWeather
 import data.model.City
+import data.model.OneDayWeather
 import data.model.TwoDaysWeather
 import kotlin.math.roundToInt
 
@@ -17,6 +17,7 @@ class WeatherRepositoryImpl(
         )
         val response = weatherApi.forecast(request)
         return TwoDaysWeather(
+            dateEpoch = response.forecast.forecastDays[0].dateEpoch,
             city = city,
             today = OneDayWeather(
                 iconUrl = response.forecast.forecastDays[0].day.condition.icon,
