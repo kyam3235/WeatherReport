@@ -111,7 +111,7 @@ object HomeTab : Tab, KoinComponent {
         get() = remember {
             TabOptions(
                 index = 0u,
-                title = "Home",
+                title = "全国",
                 icon = null
             )
         }
