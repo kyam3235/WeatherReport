@@ -23,16 +23,16 @@ import data.repository.repositoryModule
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import org.koin.core.context.startKoin
 import ui.japan.JapanScreen
 import ui.japan.JapanViewModel
+import util.initKoin
 
 @Composable
 @Preview
 fun App() {
-    startKoin {
-        modules(appModule, apiModule, repositoryModule)
-    }
+    initKoin(
+        listOf(appModule, apiModule, repositoryModule)
+    )
 
     MaterialTheme {
         TabNavigator(HomeTab) {
