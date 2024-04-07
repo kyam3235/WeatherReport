@@ -60,7 +60,7 @@ kotlin {
             implementation(libs.voyager.tabNavigator)
             implementation(libs.voyager.transitions)
             implementation(libs.orbit.mvi.core)
-            implementation(libs.moko.mvvm.core)
+            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.kamel.image)
             implementation(libs.lavmee.constraintlayout)
         }
