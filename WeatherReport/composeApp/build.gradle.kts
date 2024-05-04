@@ -63,6 +63,7 @@ kotlin {
             implementation(libs.moko.mvvm.core)
             implementation(libs.kamel.image)
             implementation(libs.lavmee.constraintlayout)
+            implementation(libs.accompanist.permissions)
         }
         commonTest.dependencies {
             implementation(libs.koin.test)

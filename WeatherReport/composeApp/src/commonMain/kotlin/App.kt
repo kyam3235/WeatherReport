@@ -125,6 +125,8 @@ object SecondTab : Tab, KoinComponent {
         val state = viewModel.container.stateFlow.collectAsState().value
         Logger.d { "Total: ${state.total}" }
 
+        LocationView(modifier = Modifier)
+
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
