@@ -6,7 +6,7 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-actual fun LocationView(
+actual fun LocationPermissionRequestDialog(
     modifier: Modifier
 ) {
     val locationPermissionState = rememberMultiplePermissionsState(

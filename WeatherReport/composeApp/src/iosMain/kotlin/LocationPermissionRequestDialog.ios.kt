@@ -7,7 +7,7 @@ import platform.CoreLocation.kCLAuthorizationStatusAuthorizedWhenInUse
 import platform.CoreLocation.kCLAuthorizationStatusRestricted
 
 @Composable
-actual fun LocationView(
+actual fun LocationPermissionRequestDialog(
     modifier: Modifier
 ) {
     val locationManager = CLLocationManager()
