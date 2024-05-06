@@ -1,3 +1,5 @@
+package ui.utils
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -6,7 +8,7 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-actual fun LocationView(
+actual fun LocationPermissionRequestDialog(
     modifier: Modifier
 ) {
     val locationPermissionState = rememberMultiplePermissionsState(

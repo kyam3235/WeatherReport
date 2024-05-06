@@ -26,6 +26,7 @@ import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 import ui.japan.JapanScreen
 import ui.japan.JapanViewModel
+import ui.utils.LocationPermissionRequestDialog
 
 @Composable
 @Preview
@@ -125,7 +126,7 @@ object SecondTab : Tab, KoinComponent {
         val state = viewModel.container.stateFlow.collectAsState().value
         Logger.d { "Total: ${state.total}" }
 
-        LocationView(modifier = Modifier)
+        LocationPermissionRequestDialog(modifier = Modifier)
 
         Column(
             modifier = Modifier.fillMaxSize()

@@ -1,3 +1,5 @@
+package ui.utils
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -7,7 +9,7 @@ import platform.CoreLocation.kCLAuthorizationStatusAuthorizedWhenInUse
 import platform.CoreLocation.kCLAuthorizationStatusRestricted
 
 @Composable
-actual fun LocationView(
+actual fun LocationPermissionRequestDialog(
     modifier: Modifier
 ) {
     val locationManager = CLLocationManager()
