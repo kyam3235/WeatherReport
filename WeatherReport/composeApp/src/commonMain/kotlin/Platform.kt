@@ -1,3 +1,4 @@
+import data.model.CurrentLocation
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import org.koin.core.definition.Definition
 import org.koin.core.definition.KoinDefinition
@@ -8,3 +9,5 @@ expect inline fun <reified T : ViewModel> Module.viewModelDefinition(
     qualifier: Qualifier? = null,
     noinline definition: Definition<T>
 ): KoinDefinition<T>
+
+expect fun getCurrentLocaiton(body: (CurrentLocation) -> Unit)
