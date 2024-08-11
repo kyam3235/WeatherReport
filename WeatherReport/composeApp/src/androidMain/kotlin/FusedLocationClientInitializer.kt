@@ -5,7 +5,7 @@ lateinit var applicationContext: Context
 
 object KLocationContext
 
-class FusedLocationClientInitializer : Initializer<KLocationContext> {
+class KLocationInitializer : Initializer<KLocationContext> {
     override fun create(context: Context): KLocationContext {
         applicationContext = context.applicationContext
         return KLocationContext

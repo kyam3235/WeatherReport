@@ -10,4 +10,4 @@ expect inline fun <reified T : ViewModel> Module.viewModelDefinition(
     noinline definition: Definition<T>
 ): KoinDefinition<T>
 
-expect fun getCurrentLocaiton(body: (CurrentLocation) -> Unit)
+expect fun getCurrentLocation(body: (CurrentLocation) -> Unit)

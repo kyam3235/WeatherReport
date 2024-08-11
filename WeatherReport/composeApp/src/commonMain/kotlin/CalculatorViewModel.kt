@@ -1,3 +1,4 @@
+import co.touchlab.kermit.Logger
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -10,6 +11,12 @@ class CalculatorViewModel :
     ContainerHost<CalculatorState, CalculatorSideEffect> {
     override val container: Container<CalculatorState, CalculatorSideEffect> =
         viewModelScope.container(CalculatorState())
+
+    init {
+        getCurrentLocation {
+            Logger.d("現在地 - lat: ${it.latitude}, lon: ${it.longitude}")
+        }
+    }
 
     fun add(number: Int) = intent {
         reduce {
