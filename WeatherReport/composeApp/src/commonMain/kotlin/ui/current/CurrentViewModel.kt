@@ -1,12 +1,8 @@
 package ui.current
 
-import data.model.City
-import data.model.TwoDaysWeather
+import data.model.CurrentLocation
 import data.repository.WeatherRepository
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import io.ktor.util.date.GMTDate
-import io.ktor.util.date.Month
-import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.container
@@ -20,32 +16,20 @@ class CurrentViewModel(
     override val container: Container<CurrentState, CurrentSideEffect> =
         viewModelScope.container(CurrentState())
 
-    init {
-        viewModelScope.launch {
-            getWeathers()
-        }
-    }
-
-    private suspend fun getWeathers() = intent {
-        val newWeathers = mutableListOf<TwoDaysWeather>()
-        newWeathers.add(weatherRepository.getTwoDaysWeather(City.SAPPORO))
-        newWeathers.add(weatherRepository.getTwoDaysWeather(City.TOKYO))
-        newWeathers.add(weatherRepository.getTwoDaysWeather(City.NAGOYA))
-        newWeathers.add(weatherRepository.getTwoDaysWeather(City.OSAKA))
-        newWeathers.add(weatherRepository.getTwoDaysWeather(City.FUKUOKA))
-        val date = GMTDate(newWeathers[0].dateEpoch * 1000)
+    fun updateCurrentLocation(currentLocation: CurrentLocation) = intent {
         reduce {
             state.copy(
-                date = "${Month.Companion.from(date.month.value).ordinal + 1}月${date.dayOfMonth}日",
-                weathers = newWeathers
+                currentLocation = currentLocation
             )
         }
     }
 }
 
 data class CurrentState(
-    val date: String = "",
-    val weathers: List<TwoDaysWeather> = listOf()
+    val currentLocation: CurrentLocation = CurrentLocation(
+        latitude = 0.0,
+        longitude = 0.0
+    )
 )
 
 sealed class CurrentSideEffect {
