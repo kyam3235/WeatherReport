@@ -37,6 +37,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
+            implementation(libs.androidx.startup.runtime)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -106,6 +107,7 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
         implementation(libs.kotlinx.coroutines.android)
+        implementation(libs.play.services.location)
     }
 }
 
