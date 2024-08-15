@@ -1,6 +1,7 @@
 package ui.current
 
 import data.model.CurrentLocation
+import data.model.ForecastWeather
 import data.repository.WeatherRepository
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import org.orbitmvi.orbit.Container
@@ -16,20 +17,18 @@ class CurrentViewModel(
     override val container: Container<CurrentState, CurrentSideEffect> =
         viewModelScope.container(CurrentState())
 
-    fun updateCurrentLocation(currentLocation: CurrentLocation) = intent {
+    fun onUpdateCurrentLocation(currentLocation: CurrentLocation) = intent {
+        val forecastWeather = weatherRepository.getCurrentWeather(currentLocation)
         reduce {
             state.copy(
-                currentLocation = currentLocation
+                currentWeather = forecastWeather
             )
         }
     }
 }
 
 data class CurrentState(
-    val currentLocation: CurrentLocation = CurrentLocation(
-        latitude = 0.0,
-        longitude = 0.0
-    )
+    val currentWeather: ForecastWeather? = null,
 )
 
 sealed class CurrentSideEffect {

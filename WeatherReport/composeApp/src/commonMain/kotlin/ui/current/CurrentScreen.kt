@@ -1,6 +1,9 @@
 package ui.current
 
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -13,9 +16,16 @@ fun CurrentScreen(viewModel: CurrentViewModel) {
     RequestCurrentLocation(
         modifier = Modifier,
         body = { location ->
-            viewModel.updateCurrentLocation(currentLocation = location)
+            viewModel.onUpdateCurrentLocation(currentLocation = location)
         }
     )
 
-    Text(text = "lat: ${state.currentLocation.latitude}, lon: ${state.currentLocation.longitude}")
+    Column {
+        state.currentWeather?.let { forecast ->
+            CurrentWeather(
+                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                forecastWeather = forecast
+            )
+        }
+    }
 }

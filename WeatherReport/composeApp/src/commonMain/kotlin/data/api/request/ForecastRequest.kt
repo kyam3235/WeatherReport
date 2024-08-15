@@ -1,12 +1,24 @@
 package data.api.request
 
-import data.model.City
+import data.model.CurrentLocation
 
-data class ForecastRequest(
-    val city: City,
-    val days: Int,
-    val lang: String = "ja",
-    val tp: Int = 24
-)
+sealed interface ForecastRequest {
+    data class City(
+        val city: data.model.City,
+        val days: Int,
+        val lang: String = "ja",
+        val tp: Int = 24
+    ) : ForecastRequest
 
-fun ForecastRequest.toQueryStrings(): String = "q=$city&days=$days&lang=$lang&tp=$tp"
+    data class Location(
+        val location: CurrentLocation,
+        val days: Int,
+        val lang: String = "ja",
+        val tp: Int = 24
+    ) : ForecastRequest
+}
+
+fun ForecastRequest.toQueryStrings(): String = when (this) {
+    is ForecastRequest.City -> "q=$city&days=$days&lang=$lang&tp=$tp"
+    is ForecastRequest.Location -> "q=${location.latitude},${location.longitude}&days=$days&lang=$lang&tp=$tp"
+}
