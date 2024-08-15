@@ -1,8 +1,11 @@
 package ui.current
 
 import data.model.CurrentLocation
+import data.model.TwoDaysWeather
 import data.repository.WeatherRepository
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import io.ktor.util.date.GMTDate
+import io.ktor.util.date.Month
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.container
@@ -16,20 +19,21 @@ class CurrentViewModel(
     override val container: Container<CurrentState, CurrentSideEffect> =
         viewModelScope.container(CurrentState())
 
-    fun updateCurrentLocation(currentLocation: CurrentLocation) = intent {
+    fun onUpdateCurrentLocation(currentLocation: CurrentLocation) = intent {
+        val weather = weatherRepository.getCurrentWeather(currentLocation)
+        val date = GMTDate(weather.dateEpoch * 1000)
         reduce {
             state.copy(
-                currentLocation = currentLocation
+                date = "${Month.Companion.from(date.month.value).ordinal + 1}月${date.dayOfMonth}日",
+                weather = weather
             )
         }
     }
 }
 
 data class CurrentState(
-    val currentLocation: CurrentLocation = CurrentLocation(
-        latitude = 0.0,
-        longitude = 0.0
-    )
+    val date: String = "",
+    val weather: TwoDaysWeather? = null,
 )
 
 sealed class CurrentSideEffect {
