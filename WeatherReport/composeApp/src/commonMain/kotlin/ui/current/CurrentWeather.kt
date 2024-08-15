@@ -25,7 +25,9 @@ fun CurrentWeather(
     val date = GMTDate(forecastWeather.currentInfo.lastUpdatedEpoch * 1000)
     Column(modifier = modifier) {
         Text(
-            text = "現在の天気(更新日時:${date.month.ordinal + 1}/${date.dayOfMonth} ${date.hours}:${date.minutes})",
+            text = "現在の天気(更新日時:${date.month.ordinal + 1}/${date.dayOfMonth} ${date.hours}:${
+                date.minutes.toString().padStart(2, '0')
+            })",
             style = MaterialTheme.typography.h6
         )
         Text(
