@@ -16,6 +16,8 @@ import data.model.ForecastWeather
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import io.ktor.util.date.GMTDate
+import io.ktor.util.date.plus
+import kotlin.time.Duration.Companion.hours
 
 @Composable
 fun CurrentWeather(
@@ -23,6 +25,7 @@ fun CurrentWeather(
     forecastWeather: ForecastWeather
 ) {
     val date = GMTDate(forecastWeather.currentInfo.lastUpdatedEpoch * 1000)
+        .plus(duration = 9.hours)
     Column(modifier = modifier) {
         Text(
             text = "現在の天気(更新日時:${date.month.ordinal + 1}/${date.dayOfMonth} ${date.hours}:${
