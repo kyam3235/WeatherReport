@@ -21,14 +21,14 @@ class CurrentViewModel(
         val forecastWeather = weatherRepository.getCurrentWeather(currentLocation)
         reduce {
             state.copy(
-                currentWeather = forecastWeather
+                forecastWeather = forecastWeather
             )
         }
     }
 }
 
 data class CurrentState(
-    val currentWeather: ForecastWeather? = null,
+    val forecastWeather: ForecastWeather? = null,
 )
 
 sealed class CurrentSideEffect {
