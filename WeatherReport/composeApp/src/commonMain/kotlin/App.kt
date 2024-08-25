@@ -54,19 +54,6 @@ fun App() {
 }
 
 @Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MaterialTheme {
-        GreetingView("Hello Android!")
-    }
-}
-
-@Composable
 private fun RowScope.TabNavigationItem(tab: Tab) {
     val tabNavigator = LocalTabNavigator.current
 
@@ -83,23 +70,6 @@ object HomeTab : Tab, KoinComponent {
     @Composable
     override fun Content() {
         JapanScreen(viewModel = viewModel)
-//        Column(
-//            modifier = Modifier.fillMaxSize()
-//        ) {
-//            val scope = rememberCoroutineScope()
-//            var text by remember { mutableStateOf("Loading") }
-//            LaunchedEffect(true) {
-//                scope.launch {
-//                    text = try {
-//                        Greeting().greet()
-//                    } catch (e: Exception) {
-//                        e.message ?: "error"
-//                    }
-//                }
-//            }
-//            Text(text = GreetingHelper().greet())
-//            GreetingView(text)
-//        }
     }
 
     override val options: TabOptions
