@@ -21,10 +21,15 @@ fun CurrentScreen(viewModel: CurrentViewModel) {
     )
 
     Column {
-        state.currentWeather?.let { forecast ->
+        state.forecastWeather?.let { forecast ->
             CurrentWeather(
                 modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
                 forecastWeather = forecast
+            )
+
+            ForecastList(
+                modifier = Modifier.fillMaxWidth(),
+                forecastInfos = forecast.forecastInfos
             )
         }
     }
