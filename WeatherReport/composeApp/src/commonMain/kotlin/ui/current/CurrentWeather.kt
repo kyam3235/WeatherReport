@@ -8,6 +8,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,8 +18,14 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import io.ktor.util.date.GMTDate
 import io.ktor.util.date.plus
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
+import weatherreport.composeapp.generated.resources.Res
+import weatherreport.composeapp.generated.resources.current_label_last_updated
+import weatherreport.composeapp.generated.resources.current_label_temperature
 import kotlin.time.Duration.Companion.hours
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CurrentWeather(
     modifier: Modifier = Modifier,
@@ -28,14 +35,20 @@ fun CurrentWeather(
         .plus(duration = 9.hours)
     Column(modifier = modifier) {
         Text(
-            text = "現在の天気(更新日時:${date.month.ordinal + 1}/${date.dayOfMonth} ${date.hours}:${
-                date.minutes.toString().padStart(2, '0')
-            })",
-            style = MaterialTheme.typography.h6
+            text = forecastWeather.locationInfo.name,
+            style = MaterialTheme.typography.h6,
+            color = Color.DarkGray
         )
         Text(
-            text = forecastWeather.locationInfo.name,
-            style = MaterialTheme.typography.body1
+            text = stringResource(
+                Res.string.current_label_last_updated,
+                date.month.ordinal + 1,
+                date.dayOfMonth,
+                date.hours,
+                date.minutes.toString().padStart(2, '0')
+            ),
+            style = MaterialTheme.typography.body1,
+            color = Color.DarkGray
         )
         Spacer(modifier = Modifier.size(size = 4.dp))
         Row(
@@ -48,15 +61,22 @@ fun CurrentWeather(
                 onLoading = { progress -> CircularProgressIndicator(progress) }
             )
 
-            Column(modifier = Modifier.weight(1.0f)) {
+            Column(
+                modifier = Modifier.weight(1.0f),
+                horizontalAlignment = CenterHorizontally
+            ) {
                 Text(
                     text = forecastWeather.currentInfo.conditionInfo.text,
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.h6,
+                    color = Color.DarkGray
                 )
                 Text(
-                    text = "気温 ${forecastWeather.currentInfo.temperature}℃",
-                    style = MaterialTheme.typography.body1,
-                    color = Color.Red
+                    text = stringResource(
+                        Res.string.current_label_temperature,
+                        forecastWeather.currentInfo.temperature
+                    ),
+                    style = MaterialTheme.typography.h6,
+                    color = Color.DarkGray
                 )
             }
         }

@@ -1,9 +1,7 @@
 package ui.current
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -23,12 +21,12 @@ fun CurrentScreen(viewModel: CurrentViewModel) {
     Column {
         state.forecastWeather?.let { forecast ->
             CurrentWeather(
-                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                modifier = Modifier.fillMaxWidth().weight(1f),
                 forecastWeather = forecast
             )
 
             ForecastList(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().weight(1f),
                 forecastInfos = forecast.forecastInfos
             )
         }
