@@ -13,7 +13,7 @@
 
 ## 開発環境
 
-- Android Studio Iguana | 2023.2.1
+- Android Studio Koala | 2024.1.1 Patch 1
 - Xcode Version 15.2 (15C500b)
 
 ## 開発環境構築
