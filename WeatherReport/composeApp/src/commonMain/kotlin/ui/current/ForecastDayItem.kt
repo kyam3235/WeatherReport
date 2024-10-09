@@ -17,8 +17,15 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import io.ktor.util.date.GMTDate
 import io.ktor.util.date.plus
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
+import weatherreport.composeapp.generated.resources.Res
+import weatherreport.composeapp.generated.resources.current_forecast_day_chance_of_rain
+import weatherreport.composeapp.generated.resources.current_forecast_day_max_temperature
+import weatherreport.composeapp.generated.resources.current_forecast_day_min_temperature
 import kotlin.time.Duration.Companion.hours
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun ForecastDayItem(
     modifier: Modifier = Modifier,
@@ -44,17 +51,26 @@ fun ForecastDayItem(
             modifier = Modifier.weight(1.0f)
         ) {
             Text(
-                text = "最高気温 ${forecastInfo.dayInfo.maxTemperature}℃",
+                text = stringResource(
+                    Res.string.current_forecast_day_max_temperature,
+                    forecastInfo.dayInfo.maxTemperature
+                ),
                 style = MaterialTheme.typography.body2,
                 color = Color.Red
             )
             Text(
-                text = "最低気温 ${forecastInfo.dayInfo.minTemperature}℃",
+                text = stringResource(
+                    Res.string.current_forecast_day_min_temperature,
+                    forecastInfo.dayInfo.minTemperature
+                ),
                 style = MaterialTheme.typography.body2,
                 color = Color.Blue
             )
             Text(
-                text = "降水確率 ${forecastInfo.dayInfo.chanceOfRain}%",
+                text = stringResource(
+                    Res.string.current_forecast_day_chance_of_rain,
+                    forecastInfo.dayInfo.chanceOfRain
+                ),
                 style = MaterialTheme.typography.body2,
                 color = Color.Cyan
             )

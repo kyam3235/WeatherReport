@@ -3,4 +3,7 @@
     <string name="app_tab_title_1">現在の天気</string>
     <string name="current_label_last_updated">更新日時 %1$s/%2$s %3$s:%4$s</string>
     <string name="current_label_temperature">%1$d ℃</string>
+    <string name="current_forecast_day_max_temperature">最高気温 %1$d ℃</string>
+    <string name="current_forecast_day_min_temperature">最低気温 %1$d ℃</string>
+    <string name="current_forecast_day_chance_of_rain">降水確率 %1$d %</string>
 </resources>
