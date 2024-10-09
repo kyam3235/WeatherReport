@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -36,7 +37,7 @@ fun CurrentWeather(
     Column(modifier = modifier) {
         Text(
             text = forecastWeather.locationInfo.name,
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.h4,
             color = Color.DarkGray
         )
         Text(
@@ -51,33 +52,37 @@ fun CurrentWeather(
             color = Color.DarkGray
         )
         Spacer(modifier = Modifier.size(size = 4.dp))
-        Row(
-            verticalAlignment = CenterVertically
+        Card(
+            elevation = 4.dp,
         ) {
-            KamelImage(
-                modifier = Modifier.weight(1.0f),
-                resource = asyncPainterResource(data = "https:${forecastWeather.currentInfo.conditionInfo.icon}"),
-                contentDescription = null,
-                onLoading = { progress -> CircularProgressIndicator(progress) }
-            )
-
-            Column(
-                modifier = Modifier.weight(1.0f),
-                horizontalAlignment = CenterHorizontally
+            Row(
+                verticalAlignment = CenterVertically
             ) {
-                Text(
-                    text = forecastWeather.currentInfo.conditionInfo.text,
-                    style = MaterialTheme.typography.h6,
-                    color = Color.DarkGray
+                KamelImage(
+                    modifier = Modifier.weight(1.0f),
+                    resource = asyncPainterResource(data = "https:${forecastWeather.currentInfo.conditionInfo.icon}"),
+                    contentDescription = null,
+                    onLoading = { progress -> CircularProgressIndicator(progress) }
                 )
-                Text(
-                    text = stringResource(
-                        Res.string.current_label_temperature,
-                        forecastWeather.currentInfo.temperature
-                    ),
-                    style = MaterialTheme.typography.h6,
-                    color = Color.DarkGray
-                )
+
+                Column(
+                    modifier = Modifier.weight(1.0f),
+                    horizontalAlignment = CenterHorizontally
+                ) {
+                    Text(
+                        text = forecastWeather.currentInfo.conditionInfo.text,
+                        style = MaterialTheme.typography.h6,
+                        color = Color.DarkGray
+                    )
+                    Text(
+                        text = stringResource(
+                            Res.string.current_label_temperature,
+                            forecastWeather.currentInfo.temperature
+                        ),
+                        style = MaterialTheme.typography.h6,
+                        color = Color.DarkGray
+                    )
+                }
             }
         }
     }
