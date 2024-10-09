@@ -3,13 +3,18 @@ package ui.current
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import data.model.ForecastInfo
@@ -32,48 +37,54 @@ fun ForecastDayItem(
     forecastInfo: ForecastInfo
 ) {
     val date = GMTDate(forecastInfo.dateEpoch * 1000).plus(duration = 9.hours)
-    Row(
-        modifier = modifier,
-        verticalAlignment = CenterVertically
+    Card(
+        modifier = modifier.height(96.dp)
+            .clip(shape = RoundedCornerShape(4.dp)),
+        elevation = 4.dp,
     ) {
-        Text(
-            modifier = Modifier.width(64.dp),
-            text = "${date.month.ordinal + 1}/${date.dayOfMonth}",
-            style = MaterialTheme.typography.body1
-        )
-        KamelImage(
-            modifier = Modifier.fillMaxHeight().weight(1.0f),
-            resource = asyncPainterResource(data = "https:${forecastInfo.dayInfo.conditionInfo.icon}"),
-            contentDescription = null,
-            onLoading = { progress -> CircularProgressIndicator(progress) }
-        )
-        Column(
-            modifier = Modifier.weight(1.0f)
+        Row(
+            modifier = Modifier.padding(all = 16.dp),
+            verticalAlignment = CenterVertically
         ) {
             Text(
-                text = stringResource(
-                    Res.string.current_forecast_day_max_temperature,
-                    forecastInfo.dayInfo.maxTemperature
-                ),
-                style = MaterialTheme.typography.body2,
-                color = Color.Red
+                modifier = Modifier.width(64.dp),
+                text = "${date.month.ordinal + 1}/${date.dayOfMonth}",
+                style = MaterialTheme.typography.body1
             )
-            Text(
-                text = stringResource(
-                    Res.string.current_forecast_day_min_temperature,
-                    forecastInfo.dayInfo.minTemperature
-                ),
-                style = MaterialTheme.typography.body2,
-                color = Color.Blue
+            KamelImage(
+                modifier = Modifier.fillMaxHeight().weight(1.0f),
+                resource = asyncPainterResource(data = "https:${forecastInfo.dayInfo.conditionInfo.icon}"),
+                contentDescription = null,
+                onLoading = { progress -> CircularProgressIndicator(progress) }
             )
-            Text(
-                text = stringResource(
-                    Res.string.current_forecast_day_chance_of_rain,
-                    forecastInfo.dayInfo.chanceOfRain
-                ),
-                style = MaterialTheme.typography.body2,
-                color = Color.Cyan
-            )
+            Column(
+                modifier = Modifier.weight(1.0f)
+            ) {
+                Text(
+                    text = stringResource(
+                        Res.string.current_forecast_day_max_temperature,
+                        forecastInfo.dayInfo.maxTemperature
+                    ),
+                    style = MaterialTheme.typography.body2,
+                    color = Color.Red
+                )
+                Text(
+                    text = stringResource(
+                        Res.string.current_forecast_day_min_temperature,
+                        forecastInfo.dayInfo.minTemperature
+                    ),
+                    style = MaterialTheme.typography.body2,
+                    color = Color.Blue
+                )
+                Text(
+                    text = stringResource(
+                        Res.string.current_forecast_day_chance_of_rain,
+                        forecastInfo.dayInfo.chanceOfRain
+                    ),
+                    style = MaterialTheme.typography.body2,
+                    color = Color.Cyan
+                )
+            }
         }
     }
 }
