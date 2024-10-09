@@ -24,6 +24,7 @@ import ui.current.CurrentScreen
 import ui.current.CurrentViewModel
 import ui.japan.JapanScreen
 import ui.japan.JapanViewModel
+import ui.utils.Colors
 import weatherreport.composeapp.generated.resources.Res
 import weatherreport.composeapp.generated.resources.app_tab_title_0
 import weatherreport.composeapp.generated.resources.app_tab_title_1
@@ -56,7 +57,8 @@ fun App() {
                         TabNavigationItem(HomeTab, tabTitles[0])
                         TabNavigationItem(SecondTab, tabTitles[1])
                     }
-                }
+                },
+                backgroundColor = Colors.Background
             ) {
                 CurrentTab()
             }
