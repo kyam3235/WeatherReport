@@ -25,7 +25,6 @@ voyager = "1.0.0"
 orbit-mvi = "6.1.1"
 moko = "0.16.1"
 kamel = "0.9.3"
-lavmee = "0.3.1"
 accompanist-permissions = "0.34.0"
 play-services-location = "21.3.0"
 
@@ -64,7 +63,6 @@ voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", vers
 orbit-mvi-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit-mvi" }
 moko-mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamel" }
-lavmee-constraintlayout = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "lavmee" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
 

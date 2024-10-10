@@ -1,10 +1,11 @@
 package ui.japan
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,7 +24,6 @@ import data.model.TwoDaysWeather
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import ui.utils.Colors
 import ui.utils.VerticalDivider
 
 @Composable
@@ -33,27 +33,25 @@ fun TwoDaysCard(
 ) {
     Card(
         modifier = modifier,
-        border = BorderStroke(
-            width = 1.dp,
-            color = Colors.DeepSkyBlue
-        ),
-        backgroundColor = Color.White.copy(alpha = 0.8f)
+        elevation = 4.dp,
     ) {
         Column(
-            modifier = Modifier.padding(8.dp).height(IntrinsicSize.Min)
+            modifier = Modifier.padding(8.dp).height(IntrinsicSize.Min).fillMaxWidth(),
         ) {
             Text(
                 text = twoDaysWeather.city.label,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.subtitle1,
+                color = Color.DarkGray,
             )
-            Row {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+            ) {
                 WeatherInfo(
                     label = "今日",
                     oneDayWeather = twoDaysWeather.today
                 )
-                Spacer(modifier = Modifier.size(8.dp))
                 VerticalDivider(color = Color.Gray)
-                Spacer(modifier = Modifier.size(8.dp))
                 WeatherInfo(
                     label = "明日",
                     oneDayWeather = twoDaysWeather.tomorrow
@@ -73,7 +71,8 @@ private fun WeatherInfo(
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.subtitle2
+            style = MaterialTheme.typography.subtitle2,
+            color = Color.DarkGray,
         )
         KamelImage(
             modifier = Modifier.size(48.dp),
