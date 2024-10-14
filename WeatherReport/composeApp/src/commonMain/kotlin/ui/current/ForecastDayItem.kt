@@ -79,7 +79,7 @@ fun ForecastDayItem(
                         forecastInfo.dayInfo.chanceOfRain
                     ),
                     style = MaterialTheme.typography.body2,
-                    color = Color.Cyan
+                    color = Color.Gray
                 )
             }
         }
